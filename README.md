@@ -1,5 +1,5 @@
 # Background
-This folder contains the first draft of a Python package that can be used for causal inference analysis using Causica package. This package is independent of the source of the input data and can run causal inference for a dataframe, given correct configurations and variables. 
+This folder contains the first draft of a Python package that can be used for causal inference analysis using (Causica package)[https://github.com/microsoft/causica]. This package is independent of the source of the input data and can run causal inference for a dataframe, given correct configurations and variables. 
 
 This package requires a configuration and few variables file to run a causal inference pipeline as follows:
 - `config.yml`: This file contains all necessary parameters for running the causal inference pipeline.
