@@ -1,0 +1,6 @@
+torch==2.0.0
+pytorch_lightning==1.9.5
+tensordict==0.1.2
+causica==0.3.4
+dowhy==0.10
+openpyxl

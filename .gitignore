@@ -11,6 +11,11 @@ __pycache__/
 build/
 develop-eggs/
 dist/
+logs/
+output_data/
+lightning_logs/
+.vscode/
+tests/
 downloads/
 eggs/
 .eggs/
