@@ -77,38 +77,26 @@ def causal_inference(config):
     if logger: logger.info("Converting variables to float type...")
     data[list(set(variables))] = data[list(set(variables))].astype(float)
 
-    # if logger: logger.info("Updating treatment variables...")
-    # updated_treatments = []
-    # for t in variables_split.treatments:
-    #     if t in list(data):
-    #         unique_vals = list(data[t].drop_duplicates())
-    #         if len(unique_vals) > 1:
-    #             updated_treatments.append(t)
-    #         else:
-    #             if logger: logger.info(f"Dropping variable {t} from the treatment list due to few number of distinct values...")
-    # variables_split.set_treatments(updated_treatments)
-
-    # try:
-    run_cls = RunAllAnalysis(run_time,
-                                logger,
-                                variables,
-                                variables_spec,
-                                variables_split.outcome,
-                                variables_split.treatments,
-                                variables_split.non_child_nodes,
-                                variables_split.forced_no_relation,
-                                variables_split.forced_with_relation,
-                                feature_to_name_map,
-                                config)
-    
-    print("Running the analysis for the full dataset at once...")
-    if logger: logger.info("Running the analysis for the full dataset at once...")
-    torch_model, _ = run_cls.run(data, output_path)
-    save_torch_model(torch_model, output_path)
-
-    # except Exception as e:
-    #     if logger: logger.error(f"Unable to process causal discovery and analysis phase due to: {e}")
-    #     print(f"Unable to process causal discovery and analysis phase due to: {e}")
+    try:
+        run_cls = RunAllAnalysis(run_time,
+                                    logger,
+                                    variables,
+                                    variables_spec,
+                                    variables_split.outcome,
+                                    variables_split.treatments,
+                                    variables_split.non_child_nodes,
+                                    variables_split.forced_no_relation,
+                                    variables_split.forced_with_relation,
+                                    feature_to_name_map,
+                                    config)
+        
+        print("Running the analysis for the full dataset at once...")
+        if logger: logger.info("Running the analysis for the full dataset at once...")
+        torch_model, _ = run_cls.run(data, output_path)
+        save_torch_model(torch_model, output_path)
+    except Exception as e:
+        if logger: logger.error(f"Unable to process causal discovery and analysis phase due to: {e}")
+        print(f"Unable to process causal discovery and analysis phase due to: {e}")
 
     print(f"Finished running causal inference pipeline in {round((time.time() - start_time)/60.0, 5)} minutes...")
     return data, variables_spec, variables
